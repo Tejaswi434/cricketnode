@@ -50,3 +50,17 @@ app.post("/players/", async (request, response) => {
   console.log(change);
   response.send("Player Added to Team");
 });
+/*updating particular*/
+app.put("/players/:playerId/", async (request, response) => {
+  const { player_Id } = request.params;
+  const playerdetails = request.body;
+  const { p, j, r } = playerdetails;
+  const dbtaking = `update cricket_team 
+    set 
+    player_name='${p}'
+    jersey_number='${j}'
+    role='${r}'
+    where player_id='${player_Id}';`;
+  await db.run(dbtaking);
+  response.send("Player Details Updated");
+});
